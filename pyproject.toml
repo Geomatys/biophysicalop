@@ -11,9 +11,9 @@ license = { text = "Apache-2.0" }
 authors = [
     { name = "David Meaux", email = "david.meaux@geomatys.com" },
 ]
-requires-python = ">=3.13"
+requires-python = ">= 3.13"
 dependencies = [
-    "modular>=26.3.0,<26.4",
+    "modular>=26.3.0.dev2026031605,<26.4",
     "pyproj>=3.7.2,<4",
     "pystac>=1.14.3,<2",
     "pystac-client>=0.9.0,<0.10",
