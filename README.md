@@ -1,4 +1,4 @@
-# biophysical
+# biophysicalop
 
 A Python package for estimating biophysical parameters from Sentinel-2 satellite data, created to supplement the 🌿 **Computing Leaf Area Index Using Sentinel-2 Data** 🛰️ notebook submitted for the [EOPF Zarr Community Notebook Competition](https://github.com/eopf-toolkit/community-notebook-competition/).
 
