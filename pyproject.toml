@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "biophysical"
+version = "1.0.0"
+description = "Biophysical parameter estimation for Sentinel-2 data."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "David Meaux", email = "david.meaux@geomatys.com" },
+]
+requires-python = ">=3.13"
+dependencies = [
+    "modular>=26.3.0.dev2026031605,<26.4",
+    "pyproj>=3.7.2,<4",
+    "pystac>=1.14.3,<2",
+    "pystac-client>=0.9.0,<0.10",
+    "xarray>=2026.2.0,<2027",
+    "zarr>=3.1.5,<4",
+    "fsspec>=2026.2.0,<2027",
+    "aiohttp>=3.13.3,<4",
+    "scipy>=1.17.0,<2",
+    "requests>=2.32.5,<3",
+    "rasterio>=1.5.0,<2",
+    "pytz>=2025.2,<2026",
+    "ipykernel>=7.1.0,<8",
+    "ipyleaflet>=0.20.0,<0.21",
+    "matplotlib>=3.10.8,<4",
+    "folium>=0.20.0,<0.21",
+]
+
+[project.urls]
+Homepage = "http://www.geomatys.com"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+biophysical = ["resources/**/*"]
+
+# ---------------------------------------------------------------------------
+# uv configuration
+# Routes the modular package to Modular's nightly wheel index.
+# All other packages resolve from PyPI as normal.
+# ---------------------------------------------------------------------------
+[tool.uv]
+prerelease = "allow"
+
+[[tool.uv.index]]
+name = "modular-nightly"
+url = "https://whl.modular.com/nightly/simple/"
+explicit = true
+
+[tool.uv.sources]
+modular = { index = "modular-nightly" }
