@@ -27,20 +27,20 @@ from pathlib import Path
 import numpy as np
 from max.driver import CPU, Accelerator, accelerator_count
 
-from biophysicalop import (
+from biophysicalop.processing import (
     BiophysicalOpProcess,
+    process,
+)
+from biophysicalop.models import (
     BiophysicalVariables,
     SatelliteSensors,
-    process,
 )
 from biophysicalop.utils import factorize
 
 if __name__ == "__main__":
     """Run biophysical operations on test data if the module is executed directly."""
     parent_path = Path(__file__).parent
-    test_data_path = (
-        parent_path / "resources/esa/biophysical/3_0/S2B/LAI/LAI_TestCases"
-    )
+    test_data_path = parent_path / "resources/esa/biophysical/3_0/S2B/LAI/LAI_TestCases"
 
     data = np.loadtxt(test_data_path, dtype=np.float32, delimiter=",", encoding="utf-8")
     print(f"original data.shape: {data.shape}")
@@ -86,7 +86,7 @@ if __name__ == "__main__":
                 results_passed_test.append(True)
             else:
                 results_passed_test.append(False)
-        
+
         # print(results_passed_test)
         total = len(results_passed_test)
         total_true = sum(results_passed_test)

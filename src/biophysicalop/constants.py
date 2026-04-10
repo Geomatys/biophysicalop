@@ -56,8 +56,12 @@ DTOR = math.pi / 180.0
 # Conversion factor for radians to degrees
 RTOD = 180.0 / math.pi  # Java double in original source code
 
-S2L2APattern = re.compile(r"S2[A-C]_MSIL2A_\\d{8}T\\d{6}_N\\d{4}_R\\d{3}_T\\d{2}\\w{3}_\\d{8}T\\d{6}")
-S2L1CPattern = re.compile(r"S2[A-C]_MSIL1C_\\d{8}T\\d{6}_N\\d{4}_R\\d{3}_T\\d{2}\\w{3}_\\d{8}T\\d{6}")
+S2L2APattern = re.compile(
+    r"S2[A-C]_MSIL2A_\\d{8}T\\d{6}_N\\d{4}_R\\d{3}_T\\d{2}\\w{3}_\\d{8}T\\d{6}"
+)
+S2L1CPattern = re.compile(
+    r"S2[A-C]_MSIL1C_\\d{8}T\\d{6}_N\\d{4}_R\\d{3}_T\\d{2}\\w{3}_\\d{8}T\\d{6}"
+)
 
 
 class OutputOutOfRangeTypes(Enum):

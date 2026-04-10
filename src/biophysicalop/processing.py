@@ -143,7 +143,6 @@ def biophysical_op_nn(op_process: BiophysicalOpProcess) -> BiophysicalOpProcess:
         layer_2_bias_filepath, dtype=np.float32, delimiter=",", encoding="utf-8"
     )  # type: ignore
 
-
     # --- Graph / InferenceSession (old approach) ---
     # DeviceRef is the symbolic device for graph construction;
     # the runtime Device is used for tensor operations and inference.

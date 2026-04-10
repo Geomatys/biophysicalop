@@ -37,8 +37,8 @@ from biophysicalop.exceptions import ArrayShapeError
 def normalize_input_value(
     x: int | float, min: int | float, max: int | float
 ) -> int | float:
-    scale = (2.0 / (max - min))
-    bias = (-2.0 * min / (max - min) - 1)
+    scale = 2.0 / (max - min)
+    bias = -2.0 * min / (max - min) - 1
     return (scale * x) + bias
 
 
@@ -97,8 +97,8 @@ def normalize_nn_input_data(data: NDArray, norms: NDArray) -> NDArray:
 def denormalize_input_value(
     y: int | float, min: int | float, max: int | float
 ) -> int | float:
-    scale = (0.5 * (max - min))
-    bias = (0.5 * (max - min) + min)
+    scale = 0.5 * (max - min)
+    bias = 0.5 * (max - min) + min
     return (scale * y) + bias
 
 

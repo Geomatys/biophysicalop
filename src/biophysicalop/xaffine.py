@@ -68,8 +68,15 @@ class Affine:
 
     __slots__ = ("a", "b", "c", "d", "e", "f")
 
-    def __init__(self, a: ArrayLike, b: ArrayLike, c: ArrayLike,
-                 d: ArrayLike, e: ArrayLike, f: ArrayLike) -> None:
+    def __init__(
+        self,
+        a: ArrayLike,
+        b: ArrayLike,
+        c: ArrayLike,
+        d: ArrayLike,
+        e: ArrayLike,
+        f: ArrayLike,
+    ) -> None:
         self.a = np.asarray(a, dtype=np.float32)
         self.b = np.asarray(b, dtype=np.float32)
         self.c = np.asarray(c, dtype=np.float32)
@@ -87,13 +94,18 @@ class Affine:
         tx = np.asarray(tx, dtype=np.float32)
         ty = np.asarray(ty, dtype=np.float32)
         return cls(
-            np.ones_like(tx), np.zeros_like(tx), tx,
-            np.zeros_like(ty), np.ones_like(ty), ty,
+            np.ones_like(tx),
+            np.zeros_like(tx),
+            tx,
+            np.zeros_like(ty),
+            np.ones_like(ty),
+            ty,
         )
 
     @classmethod
-    def from_dataarray(cls, da: xr.DataArray,
-                       x_dim: str = "x", y_dim: str = "y") -> "Affine":
+    def from_dataarray(
+        cls, da: xr.DataArray, x_dim: str = "x", y_dim: str = "y"
+    ) -> "Affine":
         """Derive the affine transform from a DataArray's regular coordinate grid.
 
         Coordinates are assumed to be at pixel centres.  The returned
@@ -116,15 +128,13 @@ class Affine:
         x_origin = x[0] - pixel_size_x / 2.0
         y_origin = y[0] - pixel_size_y / 2.0
 
-        return cls(pixel_size_x, 0.0, x_origin,
-                   0.0, pixel_size_y, y_origin)
+        return cls(pixel_size_x, 0.0, x_origin, 0.0, pixel_size_y, y_origin)
 
     # ------------------------------------------------------------------
     # Core operations
     # ------------------------------------------------------------------
 
-    def apply(self, col: ArrayLike, row: ArrayLike
-              ) -> tuple[np.ndarray, np.ndarray]:
+    def apply(self, col: ArrayLike, row: ArrayLike) -> tuple[np.ndarray, np.ndarray]:
         """Transform pixel ``(col, row)`` to map ``(x, y)``.
 
         Parameters
@@ -144,9 +154,9 @@ class Affine:
         y = self.d * col + self.e * row + self.f
         return x, y
 
-    def map_coords(self, da: xr.DataArray,
-                   x_dim: str = "x", y_dim: str = "y"
-                   ) -> tuple[xr.DataArray, xr.DataArray]:
+    def map_coords(
+        self, da: xr.DataArray, x_dim: str = "x", y_dim: str = "y"
+    ) -> tuple[xr.DataArray, xr.DataArray]:
         """Compute map coordinates for every pixel in *da*.
 
         Returns two DataArrays (``x_map``, ``y_map``) with the same
@@ -209,11 +219,19 @@ class Affine:
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Affine):
             return NotImplemented
-        return bool(np.all(
-            (self.a == other.a) & (self.b == other.b) & (self.c == other.c)
-            & (self.d == other.d) & (self.e == other.e) & (self.f == other.f)
-        ))
+        return bool(
+            np.all(
+                (self.a == other.a)
+                & (self.b == other.b)
+                & (self.c == other.c)
+                & (self.d == other.d)
+                & (self.e == other.e)
+                & (self.f == other.f)
+            )
+        )
 
     def __repr__(self) -> str:
-        return (f"Affine({self.a}, {self.b}, {self.c},\n"
-                f"       {self.d}, {self.e}, {self.f})")
+        return (
+            f"Affine({self.a}, {self.b}, {self.c},\n"
+            f"       {self.d}, {self.e}, {self.f})"
+        )

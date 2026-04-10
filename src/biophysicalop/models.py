@@ -45,7 +45,7 @@ SENTINEL2_BANDS_20M = (
     "B8A",
     "B11",
     "B12",
-    )
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -87,6 +87,7 @@ class Sentinel2ProductIdentifier:
             to change this unless the format of the product delivered by the
             European Space Agency (ESA) changes to another format.
     """
+
     full_identifier: str
     mission_id: str
     product_level: str
@@ -137,56 +138,42 @@ class SatelliteSensors(Enum):
         sensor_type=SatelliteSensorType.SENTINEL2A,
         spatial_resolution_meters=20,
         input_layer_count=11,
-        biophysical_operations=(
-            BiophysicalVariables.LAI,
-        ),
+        biophysical_operations=(BiophysicalVariables.LAI,),
         bands=SENTINEL2_BANDS_20M,
-
     )
     S2A_10m = SatelliteSensor(
         sensor_type=SatelliteSensorType.SENTINEL2A,
         spatial_resolution_meters=10,
         input_layer_count=6,
-        biophysical_operations=(
-            BiophysicalVariables.LAI,
-        ),
+        biophysical_operations=(BiophysicalVariables.LAI,),
         bands=SENTINEL2_BANDS_10M,
     )
     S2B = SatelliteSensor(
         sensor_type=SatelliteSensorType.SENTINEL2B,
         spatial_resolution_meters=20,
         input_layer_count=11,
-        biophysical_operations=(
-            BiophysicalVariables.LAI,
-        ),
+        biophysical_operations=(BiophysicalVariables.LAI,),
         bands=SENTINEL2_BANDS_20M,
     )
     S2B_10m = SatelliteSensor(
         sensor_type=SatelliteSensorType.SENTINEL2B,
         spatial_resolution_meters=10,
         input_layer_count=6,
-        biophysical_operations=(
-            BiophysicalVariables.LAI,
-        ),
+        biophysical_operations=(BiophysicalVariables.LAI,),
         bands=SENTINEL2_BANDS_10M,
     )
     S2C = SatelliteSensor(
         sensor_type=SatelliteSensorType.SENTINEL2C,
         spatial_resolution_meters=20,
         input_layer_count=11,
-        biophysical_operations=(
-            BiophysicalVariables.LAI,
-        ),
+        biophysical_operations=(BiophysicalVariables.LAI,),
         bands=SENTINEL2_BANDS_20M,
-
     )
     S2C_10m = SatelliteSensor(
         sensor_type=SatelliteSensorType.SENTINEL2C,
         spatial_resolution_meters=10,
         input_layer_count=6,
-        biophysical_operations=(
-            BiophysicalVariables.LAI,
-        ),
+        biophysical_operations=(BiophysicalVariables.LAI,),
         bands=SENTINEL2_BANDS_10M,
     )
 

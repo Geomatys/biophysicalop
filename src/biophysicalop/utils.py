@@ -121,7 +121,7 @@ def last_finite(arr: NDArray, axis: int) -> NDArray:
     # which in the flipped view corresponds to the *last* non-NaN.
     idx = np.argmax(mask, axis=axis, keepdims=True)
     result = np.take_along_axis(flipped, idx, axis=axis).squeeze(axis=axis)
-    
+
     # Where the entire slice is NaN, argmax returns 0 — patch those positions.
     # all_nan = ~mask.any(axis=axis)
     # return np.where(all_nan, np.nan, result)
@@ -179,8 +179,8 @@ def _extend_data_v2(slice_2d: NDArray) -> NDArray:
         for di, dj in _8nb:
             sr = slice(max(0, -di), EH + min(0, -di))
             sc = slice(max(0, -dj), EW + min(0, -dj))
-            tr = slice(max(0,  di), EH + min(0,  di))
-            tc = slice(max(0,  dj), EW + min(0,  dj))
+            tr = slice(max(0, di), EH + min(0, di))
+            tc = slice(max(0, dj), EW + min(0, dj))
             mark[tr, tc] |= interior_fin[sr, sc]
         ext[np.isnan(ext) & mark] = np.inf
 
@@ -228,12 +228,20 @@ def _extend_data_v2(slice_2d: NDArray) -> NDArray:
             if not inf.any():
                 break
             fin = np.isfinite(ext)
-            for di, dj in [(0, 1), (0, -1), (1, 0), (-1, 0),
-                           (-1, -1), (-1, 1), (1, -1), (1, 1)]:
+            for di, dj in [
+                (0, 1),
+                (0, -1),
+                (1, 0),
+                (-1, 0),
+                (-1, -1),
+                (-1, 1),
+                (1, -1),
+                (1, 1),
+            ]:
                 sr = slice(max(0, -di), EH + min(0, -di))
                 sc = slice(max(0, -dj), EW + min(0, -dj))
-                tr = slice(max(0,  di), EH + min(0,  di))
-                tc = slice(max(0,  dj), EW + min(0,  dj))
+                tr = slice(max(0, di), EH + min(0, di))
+                tc = slice(max(0, dj), EW + min(0, dj))
                 copy = inf[tr, tc] & fin[sr, sc]
                 if copy.any():
                     ext[tr, tc] = np.where(copy, ext[sr, sc], ext[tr, tc])
@@ -302,11 +310,6 @@ def bilinear_interpolate_xy(
     # Pixel-to-map affine from the input coordinate grid
     transform = Affine.from_dataarray(da, x_dim=x_dim, y_dim=y_dim)
 
-    # Shift the affine origin by -1 pixel in x and y to account for
-    # the border padding so that padded pixel (1, 1) still maps to the
-    # same map coordinate as original pixel (0, 0).
-    padded_transform = transform * Affine.translation(-1, -1)
-
     # Precompute the interpolation grid (same for every slice).
     # The linspace spans padded pixels 1 to padded_h-2 (i.e. the
     # original data extent) so that output pixel 0 lands exactly on
@@ -322,7 +325,9 @@ def bilinear_interpolate_xy(
     results = np.empty((batch_size, target_h, target_w), dtype=np.float32)
     for i in range(batch_size):
         results[i] = _pad_extrapolate_interpolate(
-            arr_3d[i], coords_y, coords_x,
+            arr_3d[i],
+            coords_y,
+            coords_x,
         )
 
     result = results.reshape(*batch_shape, target_h, target_w)

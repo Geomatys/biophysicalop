@@ -61,6 +61,7 @@ if TYPE_CHECKING:
 # Provenance tracking
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class ProvenanceInfo:
     """Provenance information for CF-compliant metadata history tracking.
@@ -103,14 +104,13 @@ class ProvenanceInfo:
     temporal_range: str
     cloud_cover_max: float
     spatial_resolution_meters: int
-    access_time: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    access_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
+
 
 def _format_sensing_time(datatake_sensing_start_time: str) -> str:
     """Convert ``YYYYMMDDTHHMMSS`` to ISO 8601 UTC string."""
@@ -153,8 +153,12 @@ def epsg_from_tile_id(tile_id: str) -> int:
 def _to_rasterio_transform(affine: Affine) -> RasterioAffine:
     """Convert a custom ``xaffine.Affine`` to a ``rasterio.transform.Affine``."""
     return RasterioAffine(
-        float(affine.a), float(affine.b), float(affine.c),
-        float(affine.d), float(affine.e), float(affine.f),
+        float(affine.a),
+        float(affine.b),
+        float(affine.c),
+        float(affine.d),
+        float(affine.e),
+        float(affine.f),
     )
 
 
@@ -240,6 +244,7 @@ def _resolve_spatial_info(
 # ---------------------------------------------------------------------------
 # CF metadata builders (public so callers can inspect or extend)
 # ---------------------------------------------------------------------------
+
 
 def build_history(
     op_process: BiophysicalOpProcess,
@@ -372,9 +377,7 @@ def _build_cf_global_attrs(
     attrs: dict[str, str | int | float] = {
         # --- CF required / strongly recommended ---
         "Conventions": "CF-1.13",
-        "title": (
-            f"Sentinel-2 {op_label} - {product_name}"
-        ),
+        "title": (f"Sentinel-2 {op_label} - {product_name}"),
         "institution": "",
         "source": (
             f"ESA SNAP S2ToolBox BiophysicalOp neural network algorithm "
@@ -407,14 +410,14 @@ def _build_cf_global_attrs(
     if provenance is not None:
         attrs["stac_api_endpoint"] = provenance.stac_api_endpoint
         attrs["stac_collection"] = provenance.stac_collection
-        attrs["stac_search_bbox"] = (
-            "[{:.4f}, {:.4f}, {:.4f}, {:.4f}]".format(*provenance.bbox)
+        attrs["stac_search_bbox"] = "[{:.4f}, {:.4f}, {:.4f}, {:.4f}]".format(
+            *provenance.bbox
         )
         attrs["stac_search_datetime"] = provenance.temporal_range
         attrs["stac_search_cloud_cover_max"] = str(provenance.cloud_cover_max)
         attrs["source_product_url"] = provenance.product_href
-        attrs["source_access_time"] = (
-            provenance.access_time.strftime("%Y-%m-%dT%H:%M:%SZ")
+        attrs["source_access_time"] = provenance.access_time.strftime(
+            "%Y-%m-%dT%H:%M:%SZ"
         )
 
     return attrs
@@ -447,10 +450,7 @@ def _build_variable_cf_attrs(
     _VARIABLE_ATTRS: dict[str, dict[str, object]] = {
         op_label: {
             "standard_name": "leaf_area_index" if op_label == "LAI" else op_label,
-            "long_name": (
-                "Leaf Area Index" if op_label == "LAI"
-                else op_label
-            ),
+            "long_name": ("Leaf Area Index" if op_label == "LAI" else op_label),
             "units": units_cf,
             "valid_min": np.float32(0.0),
             "valid_max": np.float32(8.0),
@@ -494,6 +494,7 @@ def _build_variable_cf_attrs(
 # ---------------------------------------------------------------------------
 # Public save functions
 # ---------------------------------------------------------------------------
+
 
 def save_geotiff(
     op_process: BiophysicalOpProcess,
@@ -582,10 +583,13 @@ def save_geotiff(
 
         # Per-band CF tags
         op_unit = op_process.biophysical_op.value.unit or "1"
-        dst.update_tags(1, long_name=f"Leaf Area Index" if op_label == "LAI" else op_label,
-                        units=op_unit,
-                        valid_min="0.0",
-                        valid_max="8.0")
+        dst.update_tags(
+            1,
+            long_name="Leaf Area Index" if op_label == "LAI" else op_label,
+            units=op_unit,
+            valid_min="0.0",
+            valid_max="8.0",
+        )
 
         # Remaining bands: masks as float32 (0.0 / 1.0)
         for i, (name, mask_arr) in enumerate(mask_layers, start=2):
@@ -681,8 +685,12 @@ def save_zarr(
         res_x = float(x_coords[1] - x_coords[0]) if width > 1 else float(transform.a)
         res_y = float(y_coords[0] - y_coords[1]) if height > 1 else float(-transform.e)
         transform = RasterioAffine(
-            res_x, 0.0, float(x_coords[0]) - res_x / 2,
-            0.0, -res_y, float(y_coords[0]) + res_y / 2,
+            res_x,
+            0.0,
+            float(x_coords[0]) - res_x / 2,
+            0.0,
+            -res_y,
+            float(y_coords[0]) + res_y / 2,
         )
 
     op_label = op_process.biophysical_op.value.label
@@ -734,8 +742,7 @@ def save_zarr(
 
     ds = xr.Dataset(
         data_vars={
-            k: xr.DataArray(v[1], dims=v[0], attrs=v[2])
-            for k, v in data_vars.items()
+            k: xr.DataArray(v[1], dims=v[0], attrs=v[2]) for k, v in data_vars.items()
         },
         coords={"y": coord_y, "x": coord_x},
         attrs=_build_cf_global_attrs(
@@ -763,8 +770,12 @@ def save_zarr(
     ds.attrs["crs_epsg"] = crs.to_epsg()
     ds.attrs["crs_wkt"] = crs.to_wkt()
     ds.attrs["transform"] = [
-        float(transform.a), float(transform.b), float(transform.c),
-        float(transform.d), float(transform.e), float(transform.f),
+        float(transform.a),
+        float(transform.b),
+        float(transform.c),
+        float(transform.d),
+        float(transform.e),
+        float(transform.f),
     ]
 
     ds.to_zarr(output_path, mode="w")

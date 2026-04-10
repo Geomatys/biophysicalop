@@ -170,7 +170,7 @@ def select_angle_by_detector_mask(
     """
     det_axis = angles.dims.index(detector_dim)
 
-    angle_vals = angles.values   # (detector, y, x), may contain NaN
+    angle_vals = angles.values  # (detector, y, x), may contain NaN
     mask_vals = detector_mask.values  # (detector, y, x), 0 or 1
 
     # Suppress non-covering detectors: np.where selects 0.0 directly (not
@@ -189,8 +189,12 @@ def select_angle_by_detector_mask(
     result = np.where(no_coverage, np.nan, result)
 
     spatial_dims = [d for d in angles.dims if d != detector_dim]
-    out_coords = {d: angles.coords[d].values for d in spatial_dims if d in angles.coords}
-    return xr.DataArray(result, dims=spatial_dims, coords=out_coords, attrs=angles.attrs)
+    out_coords = {
+        d: angles.coords[d].values for d in spatial_dims if d in angles.coords
+    }
+    return xr.DataArray(
+        result, dims=spatial_dims, coords=out_coords, attrs=angles.attrs
+    )
 
 
 def downsample_detector_masks(

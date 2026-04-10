@@ -134,7 +134,6 @@ def check_input_min_max(
     return process_result
 
 
-
 def check_input_domain(
     process_result: Result,
     domain_grid_ndarray: NDArray,
