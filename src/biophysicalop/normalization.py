@@ -31,7 +31,7 @@ __version__: str = "1.0.0"
 import numpy as np
 from numpy.typing import NDArray
 
-from biophysical.exceptions import ArrayShapeError
+from biophysicalop.exceptions import ArrayShapeError
 
 
 def normalize_input_value(

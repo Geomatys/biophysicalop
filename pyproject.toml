@@ -3,7 +3,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.backends.legacy:build"
 
 [project]
-name = "biophysical"
+name = "biophysicalop"
 version = "1.0.0"
 description = "Biophysical parameter estimation for Sentinel-2 data."
 readme = "README.md"
@@ -38,7 +38,7 @@ Homepage = "http://www.geomatys.com"
 where = ["src"]
 
 [tool.setuptools.package-data]
-biophysical = ["resources/**/*"]
+biophysicalop = ["resources/**/*"]
 
 # ---------------------------------------------------------------------------
 # uv configuration

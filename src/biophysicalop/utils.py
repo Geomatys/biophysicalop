@@ -34,8 +34,8 @@ import xarray as xr
 from numpy.typing import NDArray
 from scipy.ndimage import map_coordinates
 
-from biophysical.models import Sentinel2ProductIdentifier
-from biophysical.xaffine import Affine
+from biophysicalop.models import Sentinel2ProductIdentifier
+from biophysicalop.xaffine import Affine
 
 
 def _interp_matrix(coords_1d: NDArray, n: int) -> np.ndarray:

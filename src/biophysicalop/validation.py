@@ -34,12 +34,12 @@ from typing import TYPE_CHECKING
 import numpy as np
 from numpy.typing import NDArray
 
-from biophysical.constants import (
+from biophysicalop.constants import (
     BIOPHYSICAL_OPS_DATA_DIR_V3,
     DataFileSuffixes,
 )
-from biophysical.exceptions import ArrayShapeError, InvalidBiophysicalVariable
-from biophysical.models import (
+from biophysicalop.exceptions import ArrayShapeError, InvalidBiophysicalVariable
+from biophysicalop.models import (
     BiophysicalVariable,
     BiophysicalVariables,
     Result,
@@ -47,7 +47,7 @@ from biophysical.models import (
 )
 
 if TYPE_CHECKING:
-    from biophysical.processing import BiophysicalOpProcess
+    from biophysicalop.processing import BiophysicalOpProcess
 
 
 def is_valid_biophysical_variable(variable: BiophysicalVariable) -> bool:

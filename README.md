@@ -69,7 +69,7 @@ In the other repo's `pyproject.toml`, declare this package as a git source and c
 ```toml
 [project]
 dependencies = [
-    "biophysical",
+    "biophysicalop",
     # ...
 ]
 
@@ -83,7 +83,7 @@ explicit = true
 
 [tool.uv.sources]
 modular = { index = "modular-nightly" }
-biophysical = { git = "https://github.com/<your-username>/biophysicalop.git" }
+biophysicalop = { git = "https://github.com/Geomatys/biophysicalop.git" }
 ```
 
 Then run:
@@ -105,7 +105,7 @@ If the notebook kernel's environment already has `modular` installed, install th
 ## Package structure
 
 ```
-src/biophysical/
+src/biophysicalop/
 ├── angles.py        — Detector footprint masking and viewing angle computation
 ├── constants.py     — Enums, file path constants, and conversion factors
 ├── exceptions.py    — Custom exception types

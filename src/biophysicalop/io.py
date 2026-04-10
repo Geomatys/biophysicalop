@@ -50,11 +50,11 @@ from numpy.typing import NDArray
 from pyproj import CRS
 from rasterio.transform import Affine as RasterioAffine
 
-from biophysical.models import Sentinel2ProductIdentifier
-from biophysical.xaffine import Affine
+from biophysicalop.models import Sentinel2ProductIdentifier
+from biophysicalop.xaffine import Affine
 
 if TYPE_CHECKING:
-    from biophysical.processing import BiophysicalOpProcess
+    from biophysicalop.processing import BiophysicalOpProcess
 
 
 # ---------------------------------------------------------------------------
@@ -222,7 +222,7 @@ def _resolve_spatial_info(
     # Derive CRS from the product filename embedded in dt.encoding["source"].
     # The source URL/path always contains the Sentinel-2 product name, from
     # which the MGRS tile ID (e.g. "T31TDJ") can be reliably parsed.
-    from biophysical.utils import parse_sentinel2_product_name
+    from biophysicalop.utils import parse_sentinel2_product_name
 
     source = dt.encoding.get("source", "")
     if not source:

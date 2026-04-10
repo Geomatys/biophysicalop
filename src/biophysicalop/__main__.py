@@ -27,13 +27,13 @@ from pathlib import Path
 import numpy as np
 from max.driver import CPU, Accelerator, accelerator_count
 
-from biophysical import (
+from biophysicalop import (
     BiophysicalOpProcess,
     BiophysicalVariables,
     SatelliteSensors,
     process,
 )
-from biophysical.utils import factorize
+from biophysicalop.utils import factorize
 
 if __name__ == "__main__":
     """Run biophysical operations on test data if the module is executed directly."""

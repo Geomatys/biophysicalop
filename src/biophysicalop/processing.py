@@ -37,18 +37,18 @@ from max.driver import CPU, Device, Buffer
 from max.dtype import DType
 from max.graph import DeviceRef, Graph, TensorType, ops
 
-from biophysical.constants import DataFileSuffixes
-from biophysical.exceptions import InvalidBiophysicalOperationRequest
-from biophysical.models import (
+from biophysicalop.constants import DataFileSuffixes
+from biophysicalop.exceptions import InvalidBiophysicalOperationRequest
+from biophysicalop.models import (
     BiophysicalVariables,
     Result,
     SatelliteSensors,
 )
-from biophysical.normalization import (
+from biophysicalop.normalization import (
     denormalize_nn_ouput_data,
     normalize_nn_input_data,
 )
-from biophysical.validation import (
+from biophysicalop.validation import (
     check_input_out_of_range,
     check_output_out_of_range,
     get_model_data_filepath,
