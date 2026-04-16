@@ -13,7 +13,7 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
-    "modular>=26.3.0.dev2026031605,<26.4",
+    "modular>=26.2,<26.3",
     "pyproj>=3.7.2,<4",
     "pystac>=1.14.3,<2",
     "pystac-client>=0.9.0,<0.10",
@@ -41,17 +41,17 @@ where = ["src"]
 [tool.setuptools.package-data]
 biophysicalop = ["resources/**/*"]
 
-# ---------------------------------------------------------------------------
-# uv configuration
-# Routes the modular package to Modular's nightly wheel index.
-# All other packages resolve from PyPI as normal.
-# ---------------------------------------------------------------------------
-[tool.uv]
-prerelease = "allow"
+# # ---------------------------------------------------------------------------
+# # uv configuration
+# # Routes the modular package to Modular's nightly wheel index.
+# # All other packages resolve from PyPI as normal.
+# # ---------------------------------------------------------------------------
+# [tool.uv]
+# prerelease = "allow"
 
-[[tool.uv.index]]
-name = "modular-nightly"
-url = "https://whl.modular.com/nightly/simple/"
+# [[tool.uv.index]]
+# name = "modular-nightly"
+# url = "https://whl.modular.com/nightly/simple/"
 
-[tool.uv.sources]
-modular = { index = "modular-nightly" }
+# [tool.uv.sources]
+# modular = { index = "modular-nightly" }
