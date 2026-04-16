@@ -40,18 +40,3 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 biophysicalop = ["resources/**/*"]
-
-# # ---------------------------------------------------------------------------
-# # uv configuration
-# # Routes the modular package to Modular's nightly wheel index.
-# # All other packages resolve from PyPI as normal.
-# # ---------------------------------------------------------------------------
-# [tool.uv]
-# prerelease = "allow"
-
-# [[tool.uv.index]]
-# name = "modular-nightly"
-# url = "https://whl.modular.com/nightly/simple/"
-
-# [tool.uv.sources]
-# modular = { index = "modular-nightly" }
