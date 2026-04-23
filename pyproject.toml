@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biophysicalop"
-version = "1.0.2"
+version = "1.0.3"
 description = "Biophysical parameter estimation for Sentinel-2 data."
 readme = "README.md"
 license = { text = "Apache-2.0" }
 authors = [
     { name = "David Meaux", email = "david.meaux@geomatys.com" },
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.11,<3.14"
 dependencies = [
     "modular>=26.2,<26.3",
     "pyproj>=3.7.2,<4",
@@ -23,7 +23,7 @@ dependencies = [
     "aiohttp>=3.13.3,<4",
     "scipy>=1.17.0,<2",
     "requests>=2.32.5,<3",
-    "rasterio>=1.5.0,<2",
+    "rasterio>= 1.4.3,<1.5",
     "pytz>=2025.2,<2026",
     "ipykernel>=7.1.0,<8",
     "ipyleaflet>=0.20.0,<0.21",
